@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 // % % %
 // * ===== MODULES =====
 // % % %
@@ -14,6 +16,14 @@ const app = express()
 app.get('/api', (req, res) => {
   res.send('API up!')
 })
+
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+if (process.env.NODE_ENV === 'production') {
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/client/build/index.html'))
+  })
+}
 
 // % % %
 // * ===== LISTENING =====
