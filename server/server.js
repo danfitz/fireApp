@@ -21,8 +21,12 @@ app.get('/api', (req, res) => {
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
 if (process.env.NODE_ENV === 'production') {
+  const buildDir = path.join(__dirname, '../client/build')
+
+  app.use(express.static(buildDir))
+
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build/index.html'))
+    res.sendFile(path.join(buildDir, 'index.html'))
   })
 }
 

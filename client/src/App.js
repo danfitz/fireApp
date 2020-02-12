@@ -9,6 +9,7 @@ function App() {
       .then(response => {
         setText(response.data)
       })
+      .catch(error => console.log(error.response))
   })
   
   return (
