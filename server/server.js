@@ -22,7 +22,7 @@ app.get('/api', (req, res) => {
 // match one above, send back React's index.html file.
 if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/client/build/index.html'))
+    res.sendFile(path.join(__dirname, '../client/build/index.html'))
   })
 }
 
