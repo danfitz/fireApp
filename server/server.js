@@ -28,6 +28,6 @@ if (process.env.NODE_ENV === 'production') {
 // % % %
 // * ===== LISTENING =====
 // % % %
-app.listen(3001, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log('API up!')
 })
