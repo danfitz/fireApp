@@ -5,12 +5,14 @@ function App() {
   const [text, setText] = useState('')
 
   useEffect(() => {
-    axios.get('/api')
+    axios.get('/api/users')
       .then(response => {
-        setText(response.data)
+        const rows = response.data
+        const rowsAsString = rows.map(row => JSON.stringify(row, null, '\t')).join('\n')
+        setText(rowsAsString)
       })
       .catch(error => console.log(error.response))
-  })
+  }, [])
   
   return (
     <div className='App'>
