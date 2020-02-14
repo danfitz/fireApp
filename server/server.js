@@ -1,8 +1,6 @@
 require('dotenv').config()
 const path = require('path')
 
-const { Client } = require('pg')
-
 // % % %
 // * ===== MODULES =====
 // % % %
@@ -17,28 +15,28 @@ const app = express()
 // * ===== ENDPOINTS ======
 // % % %
 app.get('/api/users', (req, res) => {
-  const client = new Client({
-    // user: process.env.USER,
-    // host: process.env.HOST,
-    // database: process.env.DB_NAME,
-    // password: process.env.PASSWORD,
-    // port: process.env.DB_PORT,
-    connectionString: process.env.DATABASE_URL,
-    ssl: true
-  })
+  // const client = new Client({
+  //   // user: process.env.USER,
+  //   // host: process.env.HOST,
+  //   // database: process.env.DB_NAME,
+  //   // password: process.env.PASSWORD,
+  //   // port: process.env.DB_PORT,
+  //   connectionString: process.env.DATABASE_URL,
+  //   ssl: true
+  // })
 
-  client.connect()
+  // client.connect()
 
-  client.query('SELECT username, first_name, last_name FROM users;', (error, response) => {
-    if (error) {
-      console.log(error)
-      res.status(500).send('Error!')
-      return
-    }
+  // client.query('SELECT username, first_name, last_name FROM users;', (error, response) => {
+  //   if (error) {
+  //     console.log(error)
+  //     res.status(500).send('Error!')
+  //     return
+  //   }
 
-    res.send(response.rows)
-    client.end()
-  })
+  //   res.send(response.rows)
+  //   client.end()
+  // })
 })
 
 // The "catchall" handler: for any request that doesn't
