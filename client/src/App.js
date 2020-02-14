@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import withAuth from './hoc/withAuth'
 
-function App() {
+const App = props => {
   const [text, setText] = useState('')
 
   useEffect(() => {
-    axios.get('/api/users')
+    axios.get(`/api/investments/${props.username}`)
       .then(response => {
-        const rows = response.data
+        const rows = response.data.investments
         const rowsAsString = rows.map(row => JSON.stringify(row, null, '\t')).join('\n')
         setText(rowsAsString)
       })
       .catch(error => console.log(error.response))
-  }, [])
+  })
   
   return (
     <div className='App'>
@@ -21,4 +22,4 @@ function App() {
   );
 }
 
-export default App
+export default withAuth(App)

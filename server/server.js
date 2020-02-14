@@ -11,33 +11,11 @@ const express = require('express')
 // % % %
 const app = express()
 
-// % % % 
-// * ===== ENDPOINTS ======
 // % % %
-app.get('/api/users', (req, res) => {
-  // const client = new Client({
-  //   // user: process.env.USER,
-  //   // host: process.env.HOST,
-  //   // database: process.env.DB_NAME,
-  //   // password: process.env.PASSWORD,
-  //   // port: process.env.DB_PORT,
-  //   connectionString: process.env.DATABASE_URL,
-  //   ssl: true
-  // })
-
-  // client.connect()
-
-  // client.query('SELECT username, first_name, last_name FROM users;', (error, response) => {
-  //   if (error) {
-  //     console.log(error)
-  //     res.status(500).send('Error!')
-  //     return
-  //   }
-
-  //   res.send(response.rows)
-  //   client.end()
-  // })
-})
+// * ===== ROUTES & ENDPOINTS =====
+// % % %
+app.use('/auth', require('./routes/auth'))
+app.use('/api', require('./routes/api'))
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
@@ -45,7 +23,7 @@ if (process.env.NODE_ENV === 'production') {
   const buildDir = path.join(__dirname, '../client/build')
 
   app.use(express.static(buildDir))
-
+// 
   app.get('*', (req, res) => {
     res.sendFile(path.join(buildDir, 'index.html'))
   })
