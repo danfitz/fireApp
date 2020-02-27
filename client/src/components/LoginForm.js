@@ -1,6 +1,5 @@
 import React from 'react'
 import { Form, Icon, Input, Button } from 'antd'
-import 'antd/dist/antd.css'
 import styled from 'styled-components'
 
 const StyledForm = styled(Form)`

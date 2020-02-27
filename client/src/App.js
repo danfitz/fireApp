@@ -1,5 +1,7 @@
+// Modules
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+// HOC
 import withAuth from './hoc/withAuth'
 
 const App = props => {
