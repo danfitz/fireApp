@@ -11,7 +11,7 @@ module.exports = override(
     // modifyVars for antd can be found here:
     // https://ant.design/docs/react/customize-theme'#Ant-Design-Less-variables
     modifyVars: {
-      '@primary-color': '#1DA57A', // primary color for all components
+      '@primary-color': '#EF5B5B', // primary color for all components
       // '@link-color': '#1890ff', // link color
       // '@success-color': '#52c41a', // success state color
       // '@warning-color': '#faad14', // warning state color
