@@ -7,9 +7,10 @@ const path = require('path')
 const express = require('express')
 
 // % % %
-// * ===== SET UP =====
+// * ===== SET UP & MIDDLEWARE =====
 // % % %
 const app = express()
+app.use(express.json()) // <= body parser
 
 // % % %
 // * ===== ROUTES & ENDPOINTS =====
