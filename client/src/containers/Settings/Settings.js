@@ -15,8 +15,15 @@ const Settings = props => {
       .catch(error => console.log(error.response))
   }, [props.username])
 
-  if (user) return <SettingsForm values={user} /> 
-  else return <div>No user...</div>
+  if (user) {
+    return (
+      <React.Fragment>
+        <div>{JSON.stringify(user, null, 2)}</div>
+        <SettingsForm values={user} onFinish={newValues => setUser(newValues)} />
+      </React.Fragment>
+    )  
+  }
+  else return null
 }
 
 export default Settings

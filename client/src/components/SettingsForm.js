@@ -2,37 +2,37 @@ import React from 'react'
 import { Form, Icon, Input, Button } from 'antd'
 import styled from 'styled-components'
 
-const StyledForm = styled(Form)`
-  max-width: 15rem;
-  margin: 0 auto;
-`
+// const StyledForm = styled(Form)`
+//   max-width: 15rem;
+//   margin: 0 auto;
+// `
 
-const SettingsForm = props => {
-  const { getFieldDecorator } = props.form
-
+const SettingsForm = ({ values, onFinish }) => {
   return (
-    <StyledForm onSubmit={props.handleSubmit} className='login-form'>
-      {Object.entries(props.values).map(([name, value]) => (
-        <Form.Item>
-          {getFieldDecorator(name, {
-            rules: [{ required: true, message: `Input ${name.split('_').join(' ')}`}]
-          })(
-            <Input
-              prefix={<Icon type={name} />}
-              placeholder={name.split('_').join(' ')}
-              defaultValue={value}
-              // onChange={props.handleUsername}
-            />
-          )}
+    <Form
+      initialValues={values}
+      onFinish={onFinish}
+    >
+      {Object.keys(values).map(name => (
+        <Form.Item
+          key={name}
+          name={name}
+          label={name.split('_').join(' ')}
+          rules={[{ required: true, message: `Input ${name.split('_').join(' ')}`}]}
+        >
+          <Input />
         </Form.Item>
       ))}
-      <Button type='primary' htmlType='submit' className='login-form-button'>
-        Save
-      </Button>
-    </StyledForm>
+      <Form.Item>
+        <Button type='primary' htmlType='submit' className='login-form-button'>
+          Save
+        </Button>
+      </Form.Item>
+    </Form>
   )
 }
 
-const WrappedSettingsForm = Form.create({ name: 'normal_login' })(SettingsForm)
+// const WrappedSettingsForm = Form.create({ name: 'normal_login' })(SettingsForm)
 
-export default WrappedSettingsForm
+// export default WrappedSettingsForm
+export default SettingsForm

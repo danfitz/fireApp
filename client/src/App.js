@@ -12,3 +12,4 @@ const App = ({ username }) => {
 }
 
 export default withAuth(App)
+// export default App

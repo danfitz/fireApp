@@ -1,5 +1,6 @@
 import React from 'react'
-import { Form, Icon, Input, Button } from 'antd'
+import { Form, Input, Button } from 'antd'
+import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import styled from 'styled-components'
 
 const StyledForm = styled(Form)`
@@ -7,34 +8,31 @@ const StyledForm = styled(Form)`
   margin: 0 auto;
 `
 
-const LoginForm = props => {
-  const { getFieldDecorator } = props.form
-
+const LoginForm = ({ onFinish }) => {
   return (
-    <StyledForm onSubmit={props.handleSubmit} className='login-form'>
-      <Form.Item>
-        {getFieldDecorator('username', {
-          rules: [{ required: true, message: 'Input username'}]
-        })(
-          <Input
-            prefix={<Icon type='user' />}
-            placeholder='Username'
-            onChange={props.handleUsername}
-          />
-        )}
+    <StyledForm
+      onFinish={onFinish}
+    >
+      <Form.Item
+        name='username'
+        rules={[{ required: true, message: 'Input username'}]}
+      >
+        <Input
+          prefix={<UserOutlined />}
+          placeholder='Username'
+        />
       </Form.Item>
-      <Form.Item>
-        {getFieldDecorator('password', {
-          rules: [{ required: true, message: 'Input password'}]
-        })(
-          <Input
-            prefix={<Icon type='lock' />}
-            type='password'
-            placeholder='Password'
-            onChange={props.handlePassword}
-          />
-        )}
+
+      <Form.Item
+        name='password'
+        rules={[{ required: true, message: 'Input password'}]}
+      >
+        <Input.Password
+          prefix={<LockOutlined />}
+          placeholder='Password'
+        />
       </Form.Item>
+
       <Button type='primary' htmlType='submit' className='login-form-button'>
         Log in
       </Button>
@@ -42,6 +40,4 @@ const LoginForm = props => {
   )
 }
 
-const WrappedLoginForm = Form.create({ name: 'normal_login'})(LoginForm)
-
-export default WrappedLoginForm
+export default LoginForm

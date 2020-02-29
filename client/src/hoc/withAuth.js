@@ -4,33 +4,24 @@ import LoginForm from '../components/LoginForm'
 
 const withAuth = Component => {
   return props => {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
     const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const [username, setUsername] = useState(undefined)
   
-    const handleUsername = event => setUsername(event.target.value)
-    const handlePassword = event => setPassword(event.target.value)
-  
-    const handleAuthentication = event => {
-      event.preventDefault()
-  
+    const handleAuthentication = ({ username, password }) => {
       axios.get('/auth', { auth: { username, password }})
         .then(response => {
           setIsAuthenticated(response.data.authenticated)
+          setUsername(username)
         })
         .catch(error => console.log(error.response))
     }
   
   
-    if (isAuthenticated) {
+    if (isAuthenticated && username !== undefined) {
       return <Component {...props} username={username} />
     } else {
       return (
-        <LoginForm
-          handleUsername={handleUsername}
-          handlePassword={handlePassword}
-          handleSubmit={handleAuthentication}
-        />
+        <LoginForm onFinish={handleAuthentication} />
       )
     }
   }
