@@ -6,7 +6,14 @@ import moment from 'moment'
 import SettingsForm from '../../components/SettingsForm'
 // UI Components
 import { Layout, Menu } from 'antd'
-import { UserOutlined } from '@ant-design/icons'
+import {
+  FireTwoTone,
+  FireFilled,
+  SettingOutlined,
+  UserOutlined,
+  BankOutlined,
+  ShopOutlined
+} from '@ant-design/icons'
 
 const { Header, Sider, Content, Footer } = Layout
 
@@ -39,7 +46,15 @@ const Settings = props => {
   if (user) {
     return (
       <Layout>
-        <Header>
+        <Header style={{ display: 'flex' }}>
+          <div style={{ paddingTop: '0.3rem' }}>
+            <FireTwoTone twoToneColor='red' style={{ fontSize: 30 }} />
+          </div>
+          <Menu theme='dark' mode='horizontal' style={{ lineHeight: '64px' }}>
+            <Menu.Item key='entry'>Expense Entry</Menu.Item>
+            <Menu.Item key='analysis'>Analysis</Menu.Item>
+            <Menu.Item key='settings'>Settings</Menu.Item>
+          </Menu>
         </Header>
 
         <Layout>
@@ -59,11 +74,11 @@ const Settings = props => {
                 <span>User</span>
               </Menu.Item>
               <Menu.Item key='investments'>
-                <UserOutlined />
+                <BankOutlined />
                 <span>Investments</span>
               </Menu.Item>
               <Menu.Item key='expenses'>
-                <UserOutlined />
+                <ShopOutlined />
                 <span>Expenses</span>
               </Menu.Item>
             </Menu>
@@ -80,7 +95,9 @@ const Settings = props => {
           </Content>
         </Layout>
         
-        <Footer />
+        <Footer style={{ textAlign: 'center' }}>
+          Made with <FireFilled /> by <a href='https://danfitz.com' target='_blank' rel='noopener noreferrer'>Dan Fitz</a>
+        </Footer>
       </Layout>
     )  
   }

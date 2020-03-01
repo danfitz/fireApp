@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, DatePicker, Button, message } from 'antd'
+import { Form, Input, InputNumber, DatePicker, Button, message } from 'antd'
 import styled from 'styled-components'
 
 const layout = {
@@ -54,19 +54,27 @@ const SettingsForm = ({ values, onFinish }) => {
         let ConditionalInput
         switch (fieldTypes[name]) {
           case 'text':
-            ConditionalInput = Input
+            ConditionalInput = <Input />
             break
           case 'date':
-            ConditionalInput = DatePicker
+            ConditionalInput = <DatePicker format='MMM D, YYYY' />
             break
           case 'percentage':
-            ConditionalInput = Input
+            ConditionalInput = <InputNumber
+              formatter={value => `${value * 100} %`}
+              parser={value => value.replace('%', '') / 100}
+              step={0.01}
+            />
             break
           case 'money':
-            ConditionalInput = Input
+            ConditionalInput = <InputNumber
+              formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              parser={value => value.replace(/\$\s?|(,*)/g, '')}
+              step={1000}
+            />
             break
           default:
-            ConditionalInput = Input
+            ConditionalInput = <Input />
         }
 
         return (
@@ -76,7 +84,7 @@ const SettingsForm = ({ values, onFinish }) => {
             label={name.split('_').join(' ')}
             rules={[{ required: true, message: `${name.split('_').join(' ')} required`}]}
           >
-            <ConditionalInput />
+            {ConditionalInput}
           </Form.Item>
         )
       })}
