@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import moment from 'moment'
 // Child Components
-import SettingsForm from '../../components/SettingsForm'
+import UserForm from '../../components/UserForm'
+import InvestmentForm from '../../components/InvestmentForm'
 // UI Components
 import { Layout, Menu } from 'antd'
 import {
@@ -19,6 +20,7 @@ const { Header, Sider, Content, Footer } = Layout
 
 const Settings = props => {
   const [user, setUser] = useState(undefined)
+  const [investments, setInvestments] = useState([])
   const [menuSelection, setMenuSelection] = useState('user')
 
   useEffect(() => {
@@ -27,6 +29,12 @@ const Settings = props => {
         const myUser = { ...response.data.user }
         myUser.birthday = moment(myUser.birthday)
         setUser(myUser)
+      })
+      .catch(error => console.log(error.response))
+
+    axios.get(`/api/investments/${props.username}`)
+      .then(response => {
+        setInvestments(response.data.investments)
       })
       .catch(error => console.log(error.response))
   }, [props.username])
@@ -38,6 +46,17 @@ const Settings = props => {
         myUser.birthday = moment(myUser.birthday)
         setUser(myUser)
       })
+      .catch(error => console.log(error.response))
+  }
+
+  const updateInvestment = updatedInvestment => {
+    const newInvestments = [...investments]
+    const index = newInvestments.findIndex(investment => investment.id === updatedInvestment.id)
+    newInvestments.splice(index, 1, updatedInvestment)
+    setInvestments(newInvestments)
+
+    axios.post(`/api/investments/${props.username}`, { data: updatedInvestment })
+      .then(console.log)
       .catch(error => console.log(error.response))
   }
 
@@ -86,11 +105,12 @@ const Settings = props => {
 
           <Content style={{ padding: 50, background: '#fff' }}>
             { menuSelection === 'user' ? (
-              <SettingsForm values={user} onFinish={updateUser} />
+              <UserForm values={user} onFinish={updateUser} />
             ) : null }
 
             { menuSelection === 'investments' ? (
-              <div>{JSON.stringify(user, null, 2)}</div>
+              // <div>{JSON.stringify(user, null, 2)}</div>
+              <InvestmentForm investments={investments} onFinish={updateInvestment} />
             ) : null }
           </Content>
         </Layout>
